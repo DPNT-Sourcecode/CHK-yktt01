@@ -55,6 +55,8 @@ class PriceCalculator:
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
+    if not isinstance(skus, str):
+        return -1
     price_calculator = PriceCalculator(prices, offers)
     item_counts = Counter(skus)
     try:
@@ -64,4 +66,5 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
