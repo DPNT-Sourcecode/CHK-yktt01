@@ -8,16 +8,20 @@ prices = {
     'D': 15,
 }
 
+OfferT = t.Tuple[int, int]
+
+
 #Tabular price table only allows one offer per item
 offers = {
     'A': (3, 130),
     'B': (2, 45),
 }
 
+
 class Pricer:
     def __init__(
         self, prices: t.Mapping[str, int], 
-        offers: t.Mapping[str, t.Tuple[int, int]]
+        offers: t.Mapping[str, OfferT]
     ) _
 
 
@@ -25,6 +29,7 @@ class Pricer:
 # skus = unicode string
 def checkout(skus: str):
     items = Counter(skus)
+
 
 
 
