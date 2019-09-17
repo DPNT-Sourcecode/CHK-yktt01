@@ -21,5 +21,3 @@ class TestSum():
             assert sum_solution.compute(101, 101) 
         with pytest.raises(ValueError):
             assert sum_solution.compute(1, 101) 
-
-
