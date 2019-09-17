@@ -26,7 +26,7 @@ def test_offers():
     items = 'A'*6 + 'B'*10 + 'C' * 20
     assert checkout(items, prices=prices, offers=offers) == 225 + 510 + 1400
     #Lets shuffle to make sure that works
-    items_shuffled = shuffle_str(copy.copy(items))
+    items_shuffled = shuffle_str(items)
     assert checkout(
         items_shuffled, prices=prices, offers=offers,
     ) == 225 + 510 + 1400
