@@ -39,6 +39,17 @@ class PriceCalculator:
         self.prices = prices
         self.offers = offers
 
+    @classmethod
+    def calc_helper(count, offers, price=0):
+        if not offers:
+            return price
+        [offer, *rest] = offers
+        num_items, offer_price = offer
+        num_offers = count // num_items
+        remainder_items = count % num_items
+
+
+
     def calc(self, item: str, count: int) -> int:
         try: 
             offer = self.offers.get(item)
@@ -66,4 +77,5 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
