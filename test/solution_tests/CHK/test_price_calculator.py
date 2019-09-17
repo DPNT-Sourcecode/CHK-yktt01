@@ -17,5 +17,3 @@ def test_price_not_found():
     p_c = PriceCalculator(OFFERS)
     with pytest.raises(PriceNotFoundError):
         assert p_c.calc('D', 6)
-
-
