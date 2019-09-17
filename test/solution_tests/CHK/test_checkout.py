@@ -1,4 +1,5 @@
 import random
+import pytest
 from solutions.CHK.checkout_solution import checkout
 
 
@@ -30,4 +31,10 @@ def test_offers():
     assert checkout(
         items_shuffled, prices=prices, offers=offers,
     ) == 225 + 510 + 1400
+
+def test_price_not_found():
+    prices = {'A': 50, 'B': 60, 'C': 70}
+    items = 'A'*6 + 'B'*10 + 'C' * 20 + 'D'
+    assert checkout(items, prices=prices, offers={}) == -1
+
 
