@@ -17,6 +17,12 @@ offers = {
     'B': (2, 45),
 }
 
+class BaseException(Exception):
+    pass
+
+
+class PriceNotFound(BaseException):
+    Pass
 
 class PriceCalulator:
     def __init__(
@@ -26,18 +32,24 @@ class PriceCalulator:
         self.prices = prices
         self.offers = offers
 
-    def calc(item: str, count: int) -> int:
-        offer = self.offers.get(item)
-        if offer is None:
-           return self.prices[item] * count
-        num_items, offer_price = offer
-        num_offers = count // num_items
+    def calc(self, item: str, count: int) -> int:
+        try: 
+            offer = self.offers.get(item)
+            if offer is None:
+            return self.prices[item] * count
+            num_items, offer_price = offer
+            num_offers = count // num_items
+            remainder_items = count % num_items
+            return (num_offers * offer_price) + remainder_items * self.prices[item]
+        except KeyError as e:
+            raise
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
     items = Counter(skus)
+
 
 
 
