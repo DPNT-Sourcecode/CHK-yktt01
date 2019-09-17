@@ -14,5 +14,3 @@ def test_offers():
     assert p_c.calc('A', 6) == 225 
     assert p_c.calc('B', 10) == 510
     assert p_c.calc('C', 20) == 1400
-
-

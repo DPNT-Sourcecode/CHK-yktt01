@@ -30,8 +30,3 @@ def test_offers():
     assert checkout(
         items_shuffled, prices=prices, offers=offers,
     ) == 225 + 510 + 1400
-
-
-
-
-
