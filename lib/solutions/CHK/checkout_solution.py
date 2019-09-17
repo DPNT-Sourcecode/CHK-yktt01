@@ -54,10 +54,14 @@ class PriceCalculator:
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus: str, prices=PRICES, offers=OFFERS):
+def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
     price_calculator = PriceCalculator(prices, offers)
     item_counts = Counter(skus)
-    return sum(
-        price_calculator.calc(item, count) 
-        for item, count in item_counts.items()
-    )
+    try:
+        return sum(
+            price_calculator.calc(item, count) 
+            for item, count in item_counts.items()
+        )
+    except PriceNotFoundError:
+        return -1
+
