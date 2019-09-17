@@ -60,5 +60,3 @@ def checkout(skus: str):
         price_calculator.calc(item, count) 
         for item, count in item_counts
     )
-
-
