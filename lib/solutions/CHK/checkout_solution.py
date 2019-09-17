@@ -55,7 +55,7 @@ class PriceCalculator:
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str, prices=PRICES, offers=OFFERS):
-    price_calculator = PriceCalulator(prices, offers)
+    price_calculator = PriceCalculator(prices, offers)
     item_counts = Counter(skus)
     return sum(
         price_calculator.calc(item, count) 
