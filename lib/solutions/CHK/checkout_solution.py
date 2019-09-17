@@ -48,7 +48,7 @@ class PriceCalulator:
             remainder_items = count % num_items
             return (num_offers * offer_price) + remainder_items * self.prices[item]
         except KeyError as e:
-            raise PriceNotFoundError(item)
+            raise PriceNotFoundError(item) from e
 
 
 # noinspection PyUnusedLocal
@@ -60,4 +60,5 @@ def checkout(skus: str):
         price_calculator.calc(item, count) 
         for item, count in item_counts
     )
+
 
