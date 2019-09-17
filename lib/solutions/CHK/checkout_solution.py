@@ -30,6 +30,7 @@ class PriceNotFoundError(BaseException):
     def __str__(self) -> str:
         return self.msg
 
+
 class PriceCalulator:
     def __init__(
         self, prices: t.Mapping[str, int], 
@@ -53,10 +54,11 @@ class PriceCalulator:
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus: str):
-    price_calculator = PriceCalulator(PRICES, OFFERS)
+def checkout(skus: str, prices=PRICES, offers=OFFERS):
+    price_calculator = PriceCalulator(prices, offers)
     item_counts = Counter(skus)
     return sum(
         price_calculator.calc(item, count) 
         for item, count in item_counts
     )
+
