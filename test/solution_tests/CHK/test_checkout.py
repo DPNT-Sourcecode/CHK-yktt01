@@ -1,5 +1,4 @@
 import random
-import copy
 from solutions.CHK.checkout_solution import checkout
 
 
@@ -15,7 +14,7 @@ def test_no_offers():
     items = 'A'*6 + 'B'*10 + 'C' * 20
     assert checkout(items, prices=prices, offers={}) == 300 + 600 + 1400
     #Lets shuffle to make sure that works
-    items_shuffled = shuffle_str(copy.copy(items))
+    items_shuffled = shuffle_str(items)
     assert checkout(
         items_shuffled, prices=prices, offers={},
     ) == 300 + 600 + 1400
@@ -31,6 +30,7 @@ def test_offers():
     assert checkout(
         items_shuffled, prices=prices, offers=offers,
     ) == 225 + 510 + 1400
+
 
 
 
