@@ -55,11 +55,8 @@ class PriceCalulator:
 # skus = unicode string
 def checkout(skus: str):
     price_calculator = PriceCalulator(PRICES, OFFERS)
-    items = Counter(skus)
-
-
-
-
-
-
-
+    item_counts = Counter(skus)
+    return sum(
+        price_calculator.calc(item, count) 
+        for item, count in item_counts
+    )
