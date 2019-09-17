@@ -1,20 +1,15 @@
 from collections import Counter
 import typing as t
 
-PRICES = {
-    'A': 50,
-    'B': 30,
-    'C': 20,
-    'D': 15,
-}
-
 OfferT = t.Sequence[t.Tuple[int, int]]
 
 
 #Tabular price table only allows one offer per item
 OFFERS = {
-    'A': (3, 130),
-    'B': (2, 45),
+    'A': [(3, 130), (1, 50)],
+    'B': [(2, 45), (1, 30)],
+    'C': [(1, 20)],
+    'D': [(1, 15)],
 }
 
 class BaseException(Exception):
@@ -32,10 +27,7 @@ class PriceNotFoundError(BaseException):
 
 
 class PriceCalculator:
-    def __init__(
-        self, prices: t.Mapping[str, int], 
-        offers: t.Mapping[str, OfferT]
-    ) -> None:
+    def __init__(self, offers: t.Mapping[str, OfferT]) -> None:
         self.offers = offers
 
     @classmethod
@@ -58,7 +50,7 @@ class PriceCalculator:
         try: 
             offer = self.offers.get(item)
             if offer is None:
-                return self.prices[item] * count
+                return self.offers[item][-1] * count
             num_items, offer_price = offer
             num_offers = count // num_items
             remainder_items = count % num_items
@@ -81,6 +73,7 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
