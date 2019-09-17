@@ -8,7 +8,7 @@ PRICES = {
     'D': 15,
 }
 
-OfferT = t.Tuple[int, int]
+OfferT = T.list[t.Tuple[int, int]]
 
 
 #Tabular price table only allows one offer per item
@@ -66,6 +66,7 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
