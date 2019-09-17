@@ -23,7 +23,7 @@ class BaseException(Exception):
 
 class PriceNotFoundError(BaseException):
     def __init__(self, item: str) -> None:
-        super(item)
+        super().__init__(self, item)
         self.item = item
         self.msg = "No price for {0} found".format(self.item)
 
@@ -66,5 +66,6 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
