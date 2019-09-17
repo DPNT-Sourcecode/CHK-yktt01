@@ -18,17 +18,27 @@ offers = {
 }
 
 
-class Pricer:
+class PriceCalulator:
     def __init__(
         self, prices: t.Mapping[str, int], 
         offers: t.Mapping[str, OfferT]
-    ) _
+    ) -> None:
+        self.prices = prices
+        self.offers = offers
+
+    def calc(item: str, count: int) -> int:
+        offer = self.offers.get(item)
+        if offer is None:
+           return self.prices[item] * count
+        num_items, offer_price = offer
+        num_offers = count // num_items
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
     items = Counter(skus)
+
 
 
 
