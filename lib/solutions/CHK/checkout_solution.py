@@ -66,8 +66,3 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
-
-
-
-
-
