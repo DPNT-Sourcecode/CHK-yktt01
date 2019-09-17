@@ -1,6 +1,6 @@
 import random
 import copy
-from checkout_solution import checkout
+from solutions.CHK.checkout_solution import checkout
 
 
 def test_no_offers():
@@ -22,5 +22,6 @@ def test_offers():
     #Lets shuffle to make sure that works
     items_shuffled = copy.copy(items)
     assert checkout(items_shuffled) == 225 + 510 + 3500
+
 
 
