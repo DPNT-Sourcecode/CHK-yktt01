@@ -31,7 +31,7 @@ class PriceNotFoundError(BaseException):
         return self.msg
 
 
-class PriceCalulator:
+class PriceCalculator:
     def __init__(
         self, prices: t.Mapping[str, int], 
         offers: t.Mapping[str, OfferT]
