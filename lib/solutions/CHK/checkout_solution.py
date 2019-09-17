@@ -42,7 +42,7 @@ class PriceCalulator:
         try: 
             offer = self.offers.get(item)
             if offer is None:
-            return self.prices[item] * count
+                return self.prices[item] * count
             num_items, offer_price = offer
             num_offers = count // num_items
             remainder_items = count % num_items
@@ -60,3 +60,4 @@ def checkout(skus: str):
         price_calculator.calc(item, count) 
         for item, count in item_counts
     )
+
