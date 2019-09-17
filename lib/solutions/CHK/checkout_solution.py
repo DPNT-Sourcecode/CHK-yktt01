@@ -36,11 +36,13 @@ class PriceCalculator:
         self, prices: t.Mapping[str, int], 
         offers: t.Mapping[str, OfferT]
     ) -> None:
-        self.prices = prices
         self.offers = offers
 
     @classmethod
-    def calc_helper(count, offers, price=0):
+    def calc_helper(cls, count, offers, price=0):
+        #This method assumes offers are sorted by number of items
+        #Also assumes that for any n for x_a all n+1 for x_b offers have a better rate
+        #So x_b/(n+1) is always less than x_a/n
         if not offers:
             return price
         [offer, *rest] = offers
@@ -48,7 +50,7 @@ class PriceCalculator:
         num_offers = count // num_items
         remainder_items = count % num_items
         new_price = price + (num_offers * offer_price)
-        return calc_helper(remainder_items, rest, new_price) 
+        return cls.calc_helper(remainder_items, rest, new_price) 
 
 
 
@@ -79,6 +81,7 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
