@@ -1,7 +1,7 @@
 from collections import Counter
 import typing as t
 
-prices = {
+PRICES = {
     'A': 50,
     'B': 30,
     'C': 20,
@@ -12,7 +12,7 @@ OfferT = t.Tuple[int, int]
 
 
 #Tabular price table only allows one offer per item
-offers = {
+OFFERS = {
     'A': (3, 130),
     'B': (2, 45),
 }
@@ -21,8 +21,14 @@ class BaseException(Exception):
     pass
 
 
-class PriceNotFound(BaseException):
-    Pass
+class PriceNotFoundError(BaseException):
+    def __init__(self, item: str) -> None:
+        super(item)
+        self.item = item
+        self.msg = "No price for {0} found".format(self.item)
+
+    def __str__(self) -> str:
+        return self.msg
 
 class PriceCalulator:
     def __init__(
@@ -42,13 +48,15 @@ class PriceCalulator:
             remainder_items = count % num_items
             return (num_offers * offer_price) + remainder_items * self.prices[item]
         except KeyError as e:
-            raise
+            raise PriceNotFoundError(item)
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
+    price_calculator = PriceCalulator(PRICES, OFFERS)
     items = Counter(skus)
+
 
 
 
