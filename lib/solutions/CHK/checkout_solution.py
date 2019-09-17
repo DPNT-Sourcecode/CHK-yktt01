@@ -1,3 +1,4 @@
+from collections import Counter
 import typing as t
 
 prices = {
@@ -13,9 +14,17 @@ offers = {
     'B': (2, 45),
 }
 
+class Pricer:
+    def __init__(
+        self, prices: t.Mapping[str, int], 
+        offers: t.Mapping[str, t.Tuple[int, int]]
+    ) _
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str):
-    raise NotImplementedError()
+    items = Counter(skus)
+
 
 
