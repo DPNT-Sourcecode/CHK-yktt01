@@ -4,7 +4,7 @@ from solutions.CHK.checkout_solution import checkout
 
 def shuffle_str(s: str) -> str:
     random.seed(7)
-    li = s.split('')
+    li = list(s)
     random.shuffle(li)
     return str.join('', li)
 
@@ -30,3 +30,4 @@ def test_offers():
     assert checkout(
         items_shuffled, prices=prices, offers=offers,
     ) == 225 + 510 + 1400
+
