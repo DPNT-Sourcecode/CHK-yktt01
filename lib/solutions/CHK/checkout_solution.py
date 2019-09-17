@@ -47,7 +47,8 @@ class PriceCalculator:
         num_items, offer_price = offer
         num_offers = count // num_items
         remainder_items = count % num_items
-        return price + (num_offers * offer_price) 
+        new_price = price + (num_offers * offer_price)
+        return calc_helper(remainder_items, rest, new_price) 
 
 
 
@@ -78,6 +79,7 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
