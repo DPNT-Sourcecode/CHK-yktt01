@@ -59,6 +59,6 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS):
     item_counts = Counter(skus)
     return sum(
         price_calculator.calc(item, count) 
-        for item, count in item_counts
+        for item, count in item_counts.items()
     )
 
