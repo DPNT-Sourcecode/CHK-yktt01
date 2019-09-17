@@ -48,23 +48,17 @@ class PriceCalculator:
 
     def calc(self, item: str, count: int) -> int:
         try: 
-            offer = self.offers.get(item)
-            if offer is None:
-                return self.offers[item][-1] * count
-            num_items, offer_price = offer
-            num_offers = count // num_items
-            remainder_items = count % num_items
-            return (num_offers * offer_price) + remainder_items * self.prices[item]
+            return PriceCalculator.calc_helper(count, self.offers[item])
         except KeyError as e:
             raise PriceNotFoundError(item) from e
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
+def checkout(skus: str, offers=OFFERS) -> int:
     if not isinstance(skus, str):
         return -1
-    price_calculator = PriceCalculator(prices, offers)
+    price_calculator = PriceCalculator(offers)
     item_counts = Counter(skus)
     try:
         return sum(
@@ -73,6 +67,7 @@ def checkout(skus: str, prices=PRICES, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
