@@ -81,16 +81,16 @@ class BuyOffer(abc.ABC):
 
 class BuyNOfXGetMOfY(BuyOffer):
     def __init__(self, spec: BuyOfferSpec, discount: BuyOfferDiscount) -> None:
-        self.spec = spec
-        self.discount = discount
+        self._spec = spec
+        self._discount = discount
 
     @property
     def spec(self) -> BuyOfferSpec:
-        return self.spec
+        return self._spec
 
     @property
     def discount(self) -> BuyOfferDiscount:
-        return self.discount
+        return self._discount
 
     def __str__(self) -> str:
         # I won't bother adapting the English for plural vs single for now
@@ -103,16 +103,16 @@ class BuyNOfXGetAMoreOfX(BuyOffer):
         self.item = item
         self.buy_n = buy_n
         self.get_a_free = get_a_free
-        self.spec = BuyOfferSpec(item=item, number_required = buy_n + get_a_free)
-        self.discount = BuyOfferDiscount(item=item, number_to_discount = get_a_free)
+        self._spec = BuyOfferSpec(item=item, number_required = buy_n + get_a_free)
+        self._discount = BuyOfferDiscount(item=item, number_to_discount = get_a_free)
 
     @property
     def spec(self) -> BuyOfferSpec:
-        return self.spec
+        return self._spec
 
     @property
     def discount(self) -> BuyOfferDiscount:
-        return self.discount
+        return self._discount
 
     def __str__(self) -> str:
         # Again I won't bother adapting the English for plural vs single for now
@@ -174,6 +174,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
 
