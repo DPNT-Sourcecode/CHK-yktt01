@@ -80,9 +80,14 @@ class BuyNgetMFree:
     def __init__(self, buy_offers: t.Sequence[BuyOfferT]) -> None:
         self.buy_offers = buy_offers
     
-    def subtract_item_counts(item_counts: t.Mapping[str, int]):
+    def subtract_item_counts(item_counts: t.Mapping[str, int]) -> t.Mapping[str, int]:
         for buy_offer_spec, buy_offer_discount in self.buy_offers:
             item_count = item_counts.get(buy_offer_spec.item)
+            if item_count is None:
+                continue
+            offer_occurrences = item_count // buy_offer_spec.number_required
+            item_counts
+            
 
 
 
@@ -99,6 +104,7 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
