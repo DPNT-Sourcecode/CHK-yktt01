@@ -84,6 +84,10 @@ class BuyNOfXGetMOfY(BuyOffer):
         self.spec = spec
         self.discount = discount
 
+    def __str__(self) -> str:
+        # I won't bother adapting the English for plural vs single for now
+        s = f'Buy {self.spec.number_required} {self.spec.item}s'
+        s += f' get {self.discount.number_to_discount} {self.discount.item}s free'
 
 class 
 
@@ -147,3 +151,4 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
