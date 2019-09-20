@@ -55,7 +55,7 @@ class PriceCalculator:
 
 class BuyOfferSpec(t.NamedTuple):
     item: str
-    number: int
+    number_required: int
 
 
 class BuyOfferDiscount(t.NamedTuple):
@@ -63,10 +63,14 @@ class BuyOfferDiscount(t.NamedTuple):
     number_to_discount: int
 
 
+BuyOfferT = t.Tuple[BuyOfferSpec, BuyOfferDiscount]
+
+
 BUY_OFFERS = (
     (
-        (2, 'E'), 
-    )
+        BuyOfferSpec(item='E', number_required=2),
+        BuyOfferDiscount(item='B', number_to_discount=1),
+    ),
 ) 
 
 class BuyNgetMFree:
@@ -76,7 +80,7 @@ class BuyNgetMFree:
     def __init__(self, buy_offers) -> None:
         self.buy_offers = buy_offers
     
-    def subtract_item_counts(item_counts: t.Mapping[str, int]):
+    def subtract_item_counts(item_counts: t.Sequence[BuyOfferT]):
         pass
 
 
@@ -93,6 +97,7 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
