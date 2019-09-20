@@ -73,9 +73,3 @@ def test_applying_buy_offer_is_not_cheaper():
     #Lets shuffle to make sure that works
     items_shuffled = shuffle_str(items)
     assert checkout(items_shuffled, offers=offers, buy_offers=buy_offers) == 225 + 5 + 1400
-
-
-
-
-
-

@@ -68,7 +68,7 @@ class BuyOfferDiscount(t.NamedTuple):
     number_to_discount: int
 
 
-class BuyOffer:
+class BuyOffer(abc.ABC):
     @abc.abstractproperty
     def spec(self) -> BuyOfferSpec:
         ...
@@ -76,9 +76,13 @@ class BuyOffer:
     def discount(self) -> BuyOfferDiscount:
         ...
 
-class BuyNOfXGetMOfY():
-    spec: BuyOfferSpec
-    discount: BuyOfferDiscount
+    def __str__(self) -> str:
+        ...
+
+class BuyNOfXGetMOfY(BuyOffer):
+    def __init__(spec: BuyOfferSpec, discount: BuyOfferDiscount) -> None:
+        self.spec = spec
+        self.discount = discount
 
 
 class 
@@ -143,9 +147,3 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
-
-
-
-
-
-
