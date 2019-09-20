@@ -8,7 +8,7 @@ OfferT = t.Sequence[t.Tuple[int, int]]
 
 #Tabular price table only allows one offer per item
 OFFERS = {
-    'A': [(5, 150), (3, 130), (1, 50)],
+    'A': [(5, 200), (3, 130), (1, 50)],
     'B': [(2, 45), (1, 30)],
     'C': [(1, 20)],
     'D': [(1, 15)],
@@ -122,5 +122,6 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 

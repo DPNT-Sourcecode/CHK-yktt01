@@ -28,13 +28,13 @@ def test_offers():
 
 def test_offers1():
     offers = {
-    'A': [(5, 150), (3, 130), (1, 50)],
+    'A': [(5, 200), (3, 130), (1, 50)],
     }
     items = 'A'*5 
-    assert checkout(items, offers=OFFERS, buy_offers=[]) == 150
+    assert checkout(items, offers=offers, buy_offers=[]) == 200
     #Lets shuffle to make sure that works
     items_shuffled = shuffle_str(items)
-    assert checkout(items_shuffled, offers=OFFERS, buy_offers=[]) == 225 + 510 + 1400
+    assert checkout(items_shuffled, offers=offers, buy_offers=[]) == 200
 
 
 def test_price_not_found():
@@ -73,6 +73,7 @@ def test_applying_buy_offer_is_not_cheaper():
     #Lets shuffle to make sure that works
     items_shuffled = shuffle_str(items)
     assert checkout(items_shuffled, offers=offers, buy_offers=buy_offers) == 225 + 5 + 1400
+
 
 
 
