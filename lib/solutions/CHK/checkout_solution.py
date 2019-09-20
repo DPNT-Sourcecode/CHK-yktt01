@@ -77,7 +77,9 @@ BUY_OFFERS = (
 
 class BuyOfferCalculator:
     """Class which subtracts item counts based buy and get free offers.
-       For now we just apply the buy offers in order of specification
+       For now we just apply the buy offers in order of specification.
+       We are also assuming that there are no transitive buy offers.
+       So there can't be a buy offer between A -> B and then B -> C.
     """
     def __init__(self, buy_offers: t.Sequence[BuyOfferT]) -> None:
         self.buy_offers = buy_offers

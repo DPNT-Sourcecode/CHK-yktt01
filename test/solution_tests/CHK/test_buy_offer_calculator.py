@@ -21,3 +21,10 @@ def test_buy_offer_calculator(self):
         'C': 2,
         'D': 10,
     }
+    result = buy_offer_calculator.subtract_item_counts(item_counts)
+    assert result == {
+        'A': 6,
+        'B': 3,
+        'C': 2,
+        'D': 2,
+    }
