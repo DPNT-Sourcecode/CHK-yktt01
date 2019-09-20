@@ -53,7 +53,13 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
+BUY_OFFERS = {
+} 
+
 class BuyNgetMFree:
+    """Class which subtracts item counts based buy and get free offers.
+       For now we just apply the buy offers in order of specification
+    """
     def __init__(self, buy_offers) -> None:
         self.buy_offers = buy_offers
     
@@ -74,5 +80,6 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
