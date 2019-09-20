@@ -92,7 +92,7 @@ class BuyOfferCalculator:
                 continue
             offer_occurrences = item_count // buy_offer_spec.number_required
             result[buy_offer_discount.item] = max(
-                result[buy_offer_discount.item] - offer_occurrences, 
+                result[buy_offer_discount.item] - offer_occurrences*buy_offer_discount.number_to_discount, 
                 0,
             )
         return result

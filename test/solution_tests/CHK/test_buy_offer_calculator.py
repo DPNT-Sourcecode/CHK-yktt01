@@ -13,18 +13,29 @@ BUY_OFFERS = (
     ),
 ) 
 
-def test_buy_offer_calculator(self):
+def test_buy_offer_calculator():
     buy_offer_calculator = BuyOfferCalculator(BUY_OFFERS)
     item_counts = {
-        'A': 6,
+        'A': 7,
         'B': 6,
         'C': 2,
         'D': 10,
     }
     result = buy_offer_calculator.subtract_item_counts(item_counts)
     assert result == {
-        'A': 6,
+        'A': 7,
         'B': 3,
         'C': 2,
         'D': 2,
     }
+
+def test_empty_buy_offer_calculator():
+    buy_offer_calculator = BuyOfferCalculator([])
+    item_counts = {
+        'A': 7,
+        'B': 6,
+        'C': 2,
+        'D': 10,
+    }
+    result = buy_offer_calculator.subtract_item_counts(item_counts)
+    assert result == item_counts
