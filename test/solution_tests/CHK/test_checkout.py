@@ -49,7 +49,7 @@ def test_applying_buy_offer_is_cheaper():
 def test_applying_buy_offer_is_not_cheaper():
     offers = {
         'A': [(2, 75), (1, 50)],
-        'B': [(3, 170), (1, 60)],
+        'B': [(10, 5), (1, 60)], # a really contrived example I know
         'C': [(1, 70)]
     }
     buy_offers = (
@@ -58,9 +58,10 @@ def test_applying_buy_offer_is_not_cheaper():
             BuyOfferDiscount(item="B", number_to_discount=1),
         ),
     )
-    items = 'A'*6 + 'B'*9 + 'C' * 20
+    items = 'A'*6 + 'B'*10 + 'C' * 20
     assert checkout(items, offers=offers, buy_offers=buy_offers) == 225 + 510 + 1400
     #Lets shuffle to make sure that works
     items_shuffled = shuffle_str(items)
     assert checkout(items_shuffled, offers=OFFERS, buy_offers=buy_offers) == 225 + 510 + 1400
+
 
