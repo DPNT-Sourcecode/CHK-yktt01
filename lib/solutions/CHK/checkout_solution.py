@@ -99,7 +99,7 @@ class BuyNOfXGetMOfY(BuyOffer):
 
 
 class BuyNOfXGetAMoreOfX(BuyOffer):
-    def __init__(item: str, x, a) -> None:
+    def __init__(item: str, buy_n: int, get_a: int) -> None:
         self.item
         self.x = x
         self.a = a
@@ -119,18 +119,13 @@ class BuyNOfXGetAMoreOfX(BuyOffer):
         return f'Buy {self.x} {self.item}s get {self.a} free'
 
 
-BuyOfferT = t.Tuple[BuyOfferSpec, BuyOfferDiscount]
-
 
 BUY_OFFERS = (
     BuyNOfXGetMOfY(
         BuyOfferSpec(item='E', number_required=2),
         BuyOfferDiscount(item='B', number_to_discount=1),
     ),
-    (
-        BuyOfferSpec(item='F', number_required=),
-        BuyOfferDiscount(item='F', number_to_discount=1),
-    ),
+    BuyNOfXGetAMoreOfX('F', 2, 1),
 ) 
 
 class BuyOfferCalculator:
@@ -139,19 +134,19 @@ class BuyOfferCalculator:
        We are also assuming that there are no transitive buy offers.
        So there can't be a buy offer between A -> B and then B -> C.
     """
-    def __init__(self, buy_offers: t.Sequence[BuyOfferT]) -> None:
+    def __init__(self, buy_offers: t.Sequence[BuyOffer]) -> None:
         self.buy_offers = buy_offers
     
     def subtract_item_counts(self, item_counts: t.Mapping[str, int]) -> t.Mapping[str, int]:
         result = copy(item_counts)
-        for buy_offer_spec, buy_offer_discount in self.buy_offers:
-            item_count = item_counts.get(buy_offer_spec.item)
+        for buy_offer in self.buy_offers:
+            item_count = item_counts.get(buy_offer.spec.item)
             if item_count is None:
                 continue
-            offer_occurrences = item_count // buy_offer_spec.number_required
-            total_to_discount = offer_occurrences*buy_offer_discount.number_to_discount
-            result[buy_offer_discount.item] = max(
-                result[buy_offer_discount.item] - total_to_discount, 
+            offer_occurrences = item_count // buy_offer.spec.number_required
+            total_to_discount = offer_occurrences*buy.offer_discount.number_to_discount
+            result[buy_offer.discount.item] = max(
+                result[buy_offer.discount.item] - total_to_discount, 
                 0,
             )
         return result
@@ -179,6 +174,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
 
