@@ -80,7 +80,7 @@ class BuyOffer(abc.ABC):
         ...
 
 class BuyNOfXGetMOfY(BuyOffer):
-    def __init__(spec: BuyOfferSpec, discount: BuyOfferDiscount) -> None:
+    def __init__(self, spec: BuyOfferSpec, discount: BuyOfferDiscount) -> None:
         self.spec = spec
         self.discount = discount
 
@@ -99,12 +99,12 @@ class BuyNOfXGetMOfY(BuyOffer):
 
 
 class BuyNOfXGetAMoreOfX(BuyOffer):
-    def __init__(item: str, buy_n: int, get_a: int) -> None:
-        self.item
-        self.x = x
-        self.a = a
-        self.spec = BuyOfferSpec(item=item, number_required = x + a)
-        self.discount = BuyOfferDiscount(item=item, number_to_discount = a)
+    def __init__(self, item: str, buy_n: int, get_a_free: int) -> None:
+        self.item = item
+        self.buy_n = buy_n
+        self.get_a_free = get_a_free
+        self.spec = BuyOfferSpec(item=item, number_required = buy_n + get_a_free)
+        self.discount = BuyOfferDiscount(item=item, number_to_discount = get_a_free)
 
     @property
     def spec(self) -> BuyOfferSpec:
@@ -116,7 +116,7 @@ class BuyNOfXGetAMoreOfX(BuyOffer):
 
     def __str__(self) -> str:
         # Again I won't bother adapting the English for plural vs single for now
-        return f'Buy {self.x} {self.item}s get {self.a} free'
+        return f'Buy {self.buy_n} {self.item}s get {self.get_a_free} free'
 
 
 
@@ -174,6 +174,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
 

@@ -1,13 +1,14 @@
 from solutions.CHK.checkout_solution import (
     BuyOfferCalculator, BuyOfferSpec, BuyOfferDiscount,
+    BuyNOfXGetAMoreOfX, BuyNOfXGetMOfY
 )
 
 BUY_OFFERS = (
-    (
+    BuyNOfXGetMOfY(
         BuyOfferSpec(item='A', number_required=2),
         BuyOfferDiscount(item='B', number_to_discount=1),
     ),
-    (
+    BuyNOfXGetMOfY(
         BuyOfferSpec(item='C', number_required=1),
         BuyOfferDiscount(item='D', number_to_discount=4),
     ),
