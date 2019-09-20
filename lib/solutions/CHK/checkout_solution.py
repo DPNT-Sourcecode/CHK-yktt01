@@ -12,6 +12,7 @@ OFFERS = {
     'B': [(2, 45), (1, 30)],
     'C': [(1, 20)],
     'D': [(1, 15)],
+    'E': [(1, 40)],
 }
 
 class BaseException(Exception):
@@ -121,4 +122,5 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
