@@ -31,7 +31,7 @@ class PriceCalculator:
         self.offers = offers
 
     @classmethod
-    def calc_helper(cls, count, offers, price=0):
+    def calc_helper(cls, count: int, offers: t.Mapping[str, OfferT], price=0):
         #This method assumes offers are sorted by number of items
         #Also assumes that for any n for x_a all n+1 for x_b offers have a better rate
         #So x_b/(n+1) is always less than x_a/n
@@ -53,6 +53,10 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
+class BuyNgetMFree:
+    def __init__(self, )
+
+
 # skus = unicode string
 def checkout(skus: str, offers=OFFERS) -> int:
     if not isinstance(skus, str):
@@ -66,3 +70,4 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
