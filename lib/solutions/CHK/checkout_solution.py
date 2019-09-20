@@ -91,8 +91,9 @@ class BuyOfferCalculator:
             if item_count is None:
                 continue
             offer_occurrences = item_count // buy_offer_spec.number_required
+            total_to_discount = offer_occurrences*buy_offer_discount.number_to_discount
             result[buy_offer_discount.item] = max(
-                result[buy_offer_discount.item] - offer_occurrences*buy_offer_discount.number_to_discount, 
+                result[buy_offer_discount.item] - total_to_discount, 
                 0,
             )
         return result
@@ -120,4 +121,5 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
