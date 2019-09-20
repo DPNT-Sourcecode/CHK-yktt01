@@ -1,6 +1,8 @@
 import random
 import pytest
-from solutions.CHK.checkout_solution import checkout
+from solutions.CHK.checkout_solution import (
+    checkout, BuyOfferSpec, BuyOfferDiscount,
+)
 
 
 def shuffle_str(s: str) -> str:
@@ -26,6 +28,17 @@ def test_offers():
 
 
 def test_price_not_found():
-    prices = {'A': 50, 'B': 60, 'C': 70}
+    items = 'A'*6 + 'B'*10 + 'C' * 20 + 'D'
+    assert checkout(items, offers=OFFERS) == -1
+
+
+BUY_OFFERS = (
+    (
+        BuyOfferSpec(item='A', number_required=3),
+        BuyOfferDiscount(item="B", number_to_discount=1),
+    )
+)
+
+def test_buy_offer():
     items = 'A'*6 + 'B'*10 + 'C' * 20 + 'D'
     assert checkout(items, offers=OFFERS) == -1
