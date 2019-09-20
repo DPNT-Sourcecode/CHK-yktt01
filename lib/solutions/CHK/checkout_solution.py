@@ -57,6 +57,8 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
+class BuyNOfXGetMOfY
+
 class BuyOfferSpec(t.NamedTuple):
     item: str
     number_required: int
@@ -74,6 +76,10 @@ BUY_OFFERS = (
     (
         BuyOfferSpec(item='E', number_required=2),
         BuyOfferDiscount(item='B', number_to_discount=1),
+    ),
+    (
+        BuyOfferSpec(item='F', number_required=£),
+        BuyOfferDiscount(item='F', number_to_discount=1),
     ),
 ) 
 
@@ -123,6 +129,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
 
