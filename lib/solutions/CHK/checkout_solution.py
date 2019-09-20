@@ -93,6 +93,7 @@ class BuyOfferCalculator:
                 result[buy_offer_discount.item] - offer_occurrences, 
                 0,
             )
+        return result
             
 
 
@@ -106,9 +107,15 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
     item_counts = Counter(skus)
     item_counts_buy_offers = buy_offer_calculator.subtract_item_counts(item_counts)
     try:
-        return sum(
+        price = sum(
             price_calculator.calc(item, count) 
             for item, count in item_counts.items()
         )
+        price_with_buy_offers = sum(
+            price_calculator.calc(item, count) 
+            for item, count in item_counts_buy_offers.items()
+        )
+        return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
