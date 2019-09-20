@@ -109,6 +109,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
     buy_offer_calculator = BuyOfferCalculator(buy_offers)
     item_counts = Counter(skus)
     item_counts_buy_offers = buy_offer_calculator.subtract_item_counts(item_counts)
+    import pdb; pdb.set_trace()
     try:
         price = sum(
             price_calculator.calc(item, count) 
@@ -121,5 +122,6 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
