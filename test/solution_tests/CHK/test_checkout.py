@@ -53,9 +53,11 @@ def test_applying_buy_offer_is_not_cheaper():
             BuyOfferDiscount(item="B", number_to_discount=1),
         )
     )
+    import pdb; pdb.set_trace()
     items = 'A'*6 + 'B'*10 + 'C' * 20
     assert checkout(items, offers=OFFERS, buy_offers=buy_offers) == 225 + 510 + 1400
     #Lets shuffle to make sure that works
     items_shuffled = shuffle_str(items)
     assert checkout(items_shuffled, offers=OFFERS, buy_offers=buy_offers) == 225 + 510 + 1400
+
 
