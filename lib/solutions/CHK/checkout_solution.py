@@ -54,7 +54,11 @@ class PriceCalculator:
 
 
 class BuyNgetMFree:
-    def __init__(self, )
+    def __init__(self, buy_offers) -> None:
+        self.buy_offers = buy_offers
+    
+    def subtract_item_counts(item_counts: t.Mapping[str, int]):
+        pass
 
 
 # skus = unicode string
@@ -70,4 +74,5 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
