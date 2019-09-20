@@ -53,7 +53,6 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
-# noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str, offers=OFFERS) -> int:
     if not isinstance(skus, str):
