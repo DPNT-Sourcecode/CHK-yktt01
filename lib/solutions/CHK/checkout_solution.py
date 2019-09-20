@@ -53,8 +53,21 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
-BUY_OFFERS = {
-} 
+class BuyOfferSpec(t.NamedTuple):
+    item: str
+    number: int
+
+
+class BuyOfferDiscount(t.NamedTuple):
+    item: str
+    number_to_discount: int
+
+
+BUY_OFFERS = (
+    (
+        (2, 'E'), 
+    )
+) 
 
 class BuyNgetMFree:
     """Class which subtracts item counts based buy and get free offers.
@@ -80,6 +93,7 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
