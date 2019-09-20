@@ -88,6 +88,10 @@ class BuyNOfXGetMOfY(BuyOffer):
     def spec(self) -> BuyOfferSpec:
         return self.spec
 
+    @property
+    def discount(self) -> BuyOfferDiscount:
+        return self.discount
+
     def __str__(self) -> str:
         # I won't bother adapting the English for plural vs single for now
         s = f'Buy {self.spec.number_required} {self.spec.item}s'
@@ -96,22 +100,35 @@ class BuyNOfXGetMOfY(BuyOffer):
 
 class BuyNOfXGetAMoreOfX(BuyOffer):
     def __init__(item: str, x, a) -> None:
+        self.item
         self.x = x
         self.a = a
         self.spec = BuyOfferSpec(item=item, number_required = x + a)
         self.discount = BuyOfferDiscount(item=item, number_to_discount = a)
+
+    @property
+    def spec(self) -> BuyOfferSpec:
+        return self.spec
+
+    @property
+    def discount(self) -> BuyOfferDiscount:
+        return self.discount
+
+    def __str__(self) -> str:
+        # Again I won't bother adapting the English for plural vs single for now
+        return f'Buy {self.x} {self.item}s get {self.a} free'
 
 
 BuyOfferT = t.Tuple[BuyOfferSpec, BuyOfferDiscount]
 
 
 BUY_OFFERS = (
-    (
+    BuyNOfXGetMOfY(
         BuyOfferSpec(item='E', number_required=2),
         BuyOfferDiscount(item='B', number_to_discount=1),
     ),
     (
-        BuyOfferSpec(item='F', number_required=£),
+        BuyOfferSpec(item='F', number_required=),
         BuyOfferDiscount(item='F', number_to_discount=1),
     ),
 ) 
@@ -162,5 +179,6 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
