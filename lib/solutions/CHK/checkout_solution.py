@@ -75,35 +75,36 @@ BUY_OFFERS = (
     ),
 ) 
 
-class BuyNgetMFree:
+class BuyOfferCalculator:
     """Class which subtracts item counts based buy and get free offers.
        For now we just apply the buy offers in order of specification
     """
     def __init__(self, buy_offers: t.Sequence[BuyOfferT]) -> None:
         self.buy_offers = buy_offers
     
-    def subtract_item_counts(item_counts: t.Mapping[str, int]) -> t.Mapping[str, int]:
+    def subtract_item_counts(self, item_counts: t.Mapping[str, int]) -> t.Mapping[str, int]:
         result = copy(item_counts)
         for buy_offer_spec, buy_offer_discount in self.buy_offers:
             item_count = item_counts.get(buy_offer_spec.item)
             if item_count is None:
                 continue
             offer_occurrences = item_count // buy_offer_spec.number_required
-            current_occurences = 
             result[buy_offer_discount.item] = max(
                 result[buy_offer_discount.item] - offer_occurrences, 
-                0
+                0,
             )
             
 
 
 
 # skus = unicode string
-def checkout(skus: str, offers=OFFERS) -> int:
+def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
     if not isinstance(skus, str):
         return -1
     price_calculator = PriceCalculator(offers)
+    buy_offer_calculator = BuyOfferCalculator(buy_offers)
     item_counts = Counter(skus)
+    item_counts_buy_offers = buy_offer_calculator.subtract_item_counts(item_counts)
     try:
         return sum(
             price_calculator.calc(item, count) 
@@ -111,12 +112,3 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
-
-
-
-
-
-
-
-
-
