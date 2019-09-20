@@ -1,3 +1,4 @@
+import abc
 import typing as t
 
 from collections import Counter
@@ -57,8 +58,6 @@ class PriceCalculator:
             raise PriceNotFoundError(item) from e
 
 
-class BuyNOfXGetMOfY
-
 class BuyOfferSpec(t.NamedTuple):
     item: str
     number_required: int
@@ -68,6 +67,21 @@ class BuyOfferDiscount(t.NamedTuple):
     item: str
     number_to_discount: int
 
+
+class BuyOffer:
+    @abc.abstractproperty
+    def spec(self) -> BuyOfferSpec:
+        ...
+
+    def discount(self) -> BuyOfferDiscount:
+        ...
+
+class BuyNOfXGetMOfY():
+    spec: BuyOfferSpec
+    discount: BuyOfferDiscount
+
+
+class 
 
 BuyOfferT = t.Tuple[BuyOfferSpec, BuyOfferDiscount]
 
@@ -129,6 +143,7 @@ def checkout(skus: str, offers=OFFERS, buy_offers=BUY_OFFERS) -> int:
         return min(price, price_with_buy_offers)
     except PriceNotFoundError:
         return -1
+
 
 
 
