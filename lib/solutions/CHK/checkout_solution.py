@@ -81,7 +81,8 @@ class BuyNgetMFree:
         self.buy_offers = buy_offers
     
     def subtract_item_counts(item_counts: t.Sequence[BuyOfferT]):
-        pass
+        for buy_offer_spec, buy_offer_discount in self.buy_offers:
+            fore
 
 
 # skus = unicode string
@@ -97,6 +98,7 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
