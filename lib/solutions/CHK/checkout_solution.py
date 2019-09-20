@@ -77,12 +77,13 @@ class BuyNgetMFree:
     """Class which subtracts item counts based buy and get free offers.
        For now we just apply the buy offers in order of specification
     """
-    def __init__(self, buy_offers) -> None:
+    def __init__(self, buy_offers: t.Sequence[BuyOfferT]) -> None:
         self.buy_offers = buy_offers
     
-    def subtract_item_counts(item_counts: t.Sequence[BuyOfferT]):
+    def subtract_item_counts(item_counts: t.Mapping[str, int]):
         for buy_offer_spec, buy_offer_discount in self.buy_offers:
-            fore
+            item_count = item_counts.get(buy_offer_spec.item)
+
 
 
 # skus = unicode string
@@ -98,6 +99,7 @@ def checkout(skus: str, offers=OFFERS) -> int:
         )
     except PriceNotFoundError:
         return -1
+
 
 
 
